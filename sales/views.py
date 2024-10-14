@@ -9,7 +9,7 @@ def listorders(request):
     return HttpResponse("下面是系统中所有的订单信息啊啊啊。。。")
 
 
-# 先定义好HTML模板
+# 先定义 HTML模板
 html_template = '''
 <!DOCTYPE html>
 <html>
@@ -55,6 +55,7 @@ template = django_engine.from_string(html_template)
 
 
 def listcustomers(request):
+    # 类似列表
     # 返回一个 QuerySet 对象 ，包含所有的表记录
     qs = Customer.objects.values()
 
