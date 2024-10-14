@@ -38,3 +38,37 @@ def listcustomers(request):
     # 否则不能 被 转化为 JSON 字符串
     retlist = list(qs)
     return JsonResponse({'ret': 0, 'retlist': retlist})
+
+
+def addcustomer(request):
+    info = request.params['data']
+    record = Customer.objects.create(name=info['name'],
+                                     phone=info['phone'],
+                                     address=info['address'])
+    # 动态生成id
+    return JsonResponse({'ret': 0, 'id': record.id})
+
+
+def modifycustomer(request):
+    customerid = request.params['id']
+    newdata    = request.params['newdata']
+    try:
+        customer = Customer.objects.get(id=customerid)
+    except Customer.DoesNotExist:
+        return {
+            'ret': 1,
+            'msg': f'id 为`{customerid}`的客户不存在'
+        }
+
+    if 'name' in newdata:
+        customer.name = newdata['name']
+    if 'phone' in newdata:
+        customer.phone = newdata['phone']
+    if 'address' in newdata:
+        customer.address = newdata['address']
+
+    # 注意，一定要执行save才能将修改信息保存到数据库
+    customer.save()
+
+    return JsonResponse({'ret': 0})
+
