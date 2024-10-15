@@ -100,7 +100,7 @@ def updatecustomer(request):
     except Customer.DoesNotExist:
         return {
                 'ret': 1,
-                'msg': f'id 为`{customerid}`的客户不存在'
+                'msg': f'id 为`{customerid}`的客户不存在或无法更新'
         }
 
     return
