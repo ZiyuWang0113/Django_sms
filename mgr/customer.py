@@ -90,3 +90,17 @@ def deletecustomer(request):
     customer.delete()
 
     return JsonResponse({'ret': 0})
+
+
+def updatecustomer(request):
+    customerid = request.params['id']
+    try:
+        # 根据 id 从数据库中找到相应的客户记录
+        customer = Customer.objects.get(id=customerid)
+    except Customer.DoesNotExist:
+        return {
+                'ret': 1,
+                'msg': f'id 为`{customerid}`的客户不存在'
+        }
+
+    return
