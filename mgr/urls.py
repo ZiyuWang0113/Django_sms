@@ -6,4 +6,5 @@ urlpatterns = [
 
     path('customers/', customer.dispatcher),
 
+    #  path('manager/', manager.dispatcher),
 ]
